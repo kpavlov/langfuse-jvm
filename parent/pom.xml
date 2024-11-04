@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.kpavlov.project</groupId>
+    <groupId>me.kpavlov.langfuse</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Project :: Parent POM</name>
+    <name>Langfuse JVM :: Parent POM</name>
     <description>Parent POM for Project modules</description>
-    <url>https://github.com/kpavlov/awesome-kotlin-maven-template</url>
+    <url>https://github.com/kpavlov/langfuse-jvm</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,6 +24,8 @@
         <!-- Dependencies -->
         <kotlinx.version>1.9.0</kotlinx.version>
         <junit.version>5.11.3</junit.version>
+        <jackson.version>2.18.1</jackson.version>
+        <spring.version>6.1.14</spring.version>
         <awaitility.version>4.2.2</awaitility.version>
         <dotenv-kotlin.version>6.4.2</dotenv-kotlin.version>
         <assertk.version>0.28.1</assertk.version>
@@ -147,6 +149,20 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-bom</artifactId>
