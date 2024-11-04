@@ -16,7 +16,10 @@ Project provides various JVM clients for Langfuse
 Create `.env` file in root directory and add your API keys:
 
 ```dotenv
-OPENAI_API_KEY=sk-xxxxx
+LANGFUSE_SECRET_KEY="sk-lf-..."
+LANGFUSE_PUBLIC_KEY="pk-lf-..."
+LANGFUSE_HOST="https://cloud.langfuse.com" # 🇪🇺 EU region
+# LANGFUSE_HOST="https://us.cloud.langfuse.com" # 🇺🇸 US region
 ```
 
 Building project locally:

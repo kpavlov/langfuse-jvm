@@ -46,6 +46,11 @@
             <artifactId>kotlinx-coroutines-test-jvm</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-kotlin</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

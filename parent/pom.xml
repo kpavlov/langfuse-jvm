@@ -54,6 +54,7 @@
                         <args>
                             <arg>-Xjsr305=strict</arg>
                         </args>
+                        <correctErrorTypes>true</correctErrorTypes>
                         <javaParameters>true</javaParameters>
                     </configuration>
                     <executions>
@@ -63,6 +64,12 @@
                             <goals>
                                 <goal>compile</goal>
                             </goals>
+                            <configuration>
+                                <sourceDirs>
+                                    <sourceDir>src/main/kotlin</sourceDir>
+                                    <sourceDir>target/generated-sources/openapi/src/main/kotlin</sourceDir>
+                                </sourceDirs>
+                            </configuration>
                         </execution>
                         <execution>
                             <id>test-compile</id>
@@ -70,6 +77,9 @@
                             <goals>
                                 <goal>test-compile</goal>
                             </goals>
+                            <configuration>
+                                <defaultSourceDir>src/test/kotlin</defaultSourceDir>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
@@ -194,6 +204,12 @@
                 <groupId>org.mockito.kotlin</groupId>
                 <artifactId>mockito-kotlin</artifactId>
                 <version>${mockito-kotlin.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.github.cdimascio</groupId>
+                <artifactId>dotenv-kotlin</artifactId>
+                <version>${dotenv-kotlin.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
