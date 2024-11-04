@@ -1,4 +1,4 @@
-package me.kpavlov.project
+package me.kpavlov.langfuse.spring
 
 import kotlinx.coroutines.coroutineScope
 

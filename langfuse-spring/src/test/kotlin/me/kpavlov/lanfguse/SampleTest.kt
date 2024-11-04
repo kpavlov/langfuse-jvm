@@ -1,8 +1,9 @@
-package me.kpavlov.project
+package me.kpavlov.lanfguse
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import kotlinx.coroutines.test.runTest
+import me.kpavlov.langfuse.spring.Sample
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
