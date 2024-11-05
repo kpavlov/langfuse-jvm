@@ -17,13 +17,15 @@
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
+        <dokka.skip>true</dokka.skip>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>me.kpavlov.langfuse</groupId>
+            <groupId>${project.parent.groupId}</groupId>
             <artifactId>langfuse-spring</artifactId>
             <version>${project.parent.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
