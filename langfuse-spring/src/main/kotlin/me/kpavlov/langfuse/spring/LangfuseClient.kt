@@ -31,6 +31,7 @@ public open class LangfuseClient(
         SystemPropertyUtils.resolvePlaceholders(
             "\${LANGFUSE_HOST}",
         ),
+    val projectId: String? = null,
 ) {
     constructor(secretKey: String, publicKey: String) : this(
         secretKey = secretKey,
