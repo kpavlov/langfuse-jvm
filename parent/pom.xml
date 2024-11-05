@@ -54,6 +54,8 @@
                         <args>
                             <arg>-Xjsr305=strict</arg>
                         </args>
+                        <apiVersion>1.9</apiVersion>
+                        <languageVersion>1.9</languageVersion>
                         <correctErrorTypes>true</correctErrorTypes>
                         <javaParameters>true</javaParameters>
                     </configuration>
