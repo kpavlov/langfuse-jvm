@@ -16,6 +16,10 @@
     <description>Bill of Materials POM for getting full, complete set of compatible versions of project modules
     </description>
 
+    <properties>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

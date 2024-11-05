@@ -104,14 +104,42 @@
                     <version>3.21.0</version>
                 </plugin>
                 <plugin>
+                    <groupId>com.github.ozsie</groupId>
+                    <artifactId>detekt-maven-plugin</artifactId>
+                    <version>1.23.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>3.6.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>7.9.0</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <inputSpec>https://cloud.langfuse.com/generated/api/openapi.yml</inputSpec>
+                        <generatorName>kotlin</generatorName>
+                        <generateApiTests>false</generateApiTests>
+                        <generateModelTests>false</generateModelTests>
+                        <generateApiDocumentation>false</generateApiDocumentation>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>org.jetbrains.dokka</groupId>
                     <artifactId>dokka-maven-plugin</artifactId>
                     <version>1.9.20</version>
                 </plugin>
                 <plugin>
-                    <groupId>com.github.ozsie</groupId>
-                    <artifactId>detekt-maven-plugin</artifactId>
-                    <version>1.23.7</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.4.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.3.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -148,13 +176,18 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -68,21 +68,17 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>7.9.0</version>
-                <extensions>true</extensions>
                 <executions>
                     <execution>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>https://cloud.langfuse.com/generated/api/openapi.yml</inputSpec>
+                            <!--                            <inputSpec>https://cloud.langfuse.com/generated/api/openapi.yml</inputSpec>-->
                             <generatorName>kotlin</generatorName>
                             <library>jvm-spring-webclient</library>
                             <packageName>me.kpavlov.langfuse.spring</packageName>
                             <apiPackage>me.kpavlov.langfuse.spring</apiPackage>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
                             <generateApiDocumentation>false</generateApiDocumentation>
                             <configOptions>
                                 <omitGradleWrapper>true</omitGradleWrapper>
@@ -101,7 +97,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.6.0</version>
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>
@@ -113,6 +108,30 @@
                                 <source>target/generated-sources/openapi/src/main/kotlin</source>
                             </sources>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.jetbrains.dokka</groupId>-->
+<!--                <artifactId>dokka-maven-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>pre-site</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>javadocJar</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
