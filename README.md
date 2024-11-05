@@ -2,8 +2,8 @@
 JVM clients for [Langfuse](https://api.reference.langfuse.com)
 
 [![Kotlin CI with Maven](https://github.com/kpavlov/langfuse-jvm/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/kpavlov/langfuse-jvm/actions/workflows/maven.yml)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4da0f1abf0fd49038bb29676b6d38579)](https://app.codacy.com/gh/kpavlov/langfuse-jvm/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![Codacy Coverage](https://app.codacy.com/project/badge/Coverage/4da0f1abf0fd49038bb29676b6d38579)](https://app.codacy.com/gh/kpavlov/langfuse-jvm/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b213cf0965cb47dba3bdd67e3b463e08)](https://app.codacy.com/gh/kpavlov/langfuse-jvm/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Coverage](https://app.codacy.com/project/badge/Coverage/b213cf0965cb47dba3bdd67e3b463e08)](https://app.codacy.com/gh/kpavlov/langfuse-jvm/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
 # Overview
 
