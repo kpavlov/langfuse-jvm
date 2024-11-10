@@ -15,13 +15,19 @@ object TestEnvironment {
             println("Loading .env file from $directory")
         }
 
+    @Suppress("RedundantNullableReturnType")
     fun env(
         name: String,
         defaultValue: String? = null,
-    ): String? =
-        if (defaultValue != null) {
+    ): String? {
+        val systemEnv = System.getenv(name)
+        if (systemEnv != null) {
+            return systemEnv
+        }
+        return if (defaultValue != null) {
             dotenv.get(name, defaultValue)
         } else {
             dotenv[name]
         }
+    }
 }

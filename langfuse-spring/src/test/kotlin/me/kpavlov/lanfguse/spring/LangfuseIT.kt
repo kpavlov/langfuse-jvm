@@ -3,6 +3,7 @@ package me.kpavlov.lanfguse.spring
 import assertk.assertThat
 import assertk.assertions.isNotEmpty
 import assertk.assertions.isNotNull
+import assertk.fail
 import kotlinx.coroutines.test.runTest
 import me.kpavlov.langfuse.spring.LangfuseClient
 import org.junit.jupiter.api.BeforeAll
@@ -17,8 +18,11 @@ internal class LangfuseIT {
 
     @BeforeAll
     fun beforeAll() {
-        val secretKey = TestEnvironment.env("LANGFUSE_SECRET_KEY")!!
-        val publicKey = TestEnvironment.env("LANGFUSE_PUBLIC_KEY")!!
+        val secretKey = TestEnvironment.env("LANGFUSE_SECRET_KEY")
+        val publicKey = TestEnvironment.env("LANGFUSE_PUBLIC_KEY")
+        if (secretKey == null || publicKey == null) {
+            fail("LANGFUSE_SECRET_KEY and LANGFUSE_PUBLIC_KEY must be set")
+        }
         langfuseClient =
             LangfuseClient(
                 secretKey = secretKey,
