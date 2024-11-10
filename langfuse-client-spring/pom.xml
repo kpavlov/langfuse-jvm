@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>langfuse-spring</artifactId>
+    <artifactId>langfuse-client-spring</artifactId>
     <name>Langfuse Spring Client</name>
     <description>Langfuse client for Spring Framework</description>
 
