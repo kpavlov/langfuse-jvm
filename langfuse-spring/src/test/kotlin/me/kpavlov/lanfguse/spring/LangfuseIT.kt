@@ -18,8 +18,8 @@ internal class LangfuseIT {
 
     @BeforeAll
     fun beforeAll() {
-        val secretKey = TestEnvironment.env("LANGFUSE_SECRET_KEY")
-        val publicKey = TestEnvironment.env("LANGFUSE_PUBLIC_KEY")
+        val secretKey = TestEnvironment["LANGFUSE_SECRET_KEY"]
+        val publicKey = TestEnvironment["LANGFUSE_PUBLIC_KEY"]
         if (secretKey == null || publicKey == null) {
             fail("LANGFUSE_SECRET_KEY and LANGFUSE_PUBLIC_KEY must be set")
         }

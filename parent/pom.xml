@@ -29,6 +29,7 @@
         <awaitility.version>4.2.2</awaitility.version>
         <dotenv-kotlin.version>6.4.2</dotenv-kotlin.version>
         <assertk.version>0.28.1</assertk.version>
+        <finchly.version>0.1.1</finchly.version>
         <mockito.version>5.14.2</mockito.version>
         <mockito-kotlin.version>5.4.0</mockito-kotlin.version>
     </properties>
@@ -230,6 +231,12 @@
             </dependency>
 
             <!-- Test Dependencies -->
+            <dependency>
+                <groupId>me.kpavlov.finchly</groupId>
+                <artifactId>finchly</artifactId>
+                <version>${finchly.version}</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlinx</groupId>
                 <artifactId>kotlinx-coroutines-test-jvm</artifactId>
