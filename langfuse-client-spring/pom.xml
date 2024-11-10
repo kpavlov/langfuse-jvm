@@ -69,7 +69,6 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <!--                            <inputSpec>https://cloud.langfuse.com/generated/api/openapi.yml</inputSpec>-->
                             <generatorName>kotlin</generatorName>
                             <library>jvm-spring-webclient</library>
                             <packageName>me.kpavlov.langfuse.spring</packageName>

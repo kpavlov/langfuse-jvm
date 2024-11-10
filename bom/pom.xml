@@ -25,6 +25,11 @@
         <dependencies>
             <dependency>
                 <groupId>me.kpavlov.langfuse</groupId>
+                <artifactId>langfuse-client-java</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.kpavlov.langfuse</groupId>
                 <artifactId>langfuse-client-spring</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
