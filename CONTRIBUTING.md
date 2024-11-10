@@ -13,6 +13,6 @@ Thank you for investing your time and effort in contributing to my project, I ap
 - **Naming Conventions**: Follow existing naming conventions.
 - **No Lombok**: Avoid using Lombok in the codebase.
 - **Documentation**: Add Javadoc where necessary, but the code should be self-documenting.
-- **Code Style**: Follow the existing code style present in the project.
+- **Code Style**: Follow the Kotlin official code style .
 - **Discuss Large Features**: Large features should be discussed with maintainers before implementation.
 - **Thread Safety**: Ensure that the code you write is thread-safe.
