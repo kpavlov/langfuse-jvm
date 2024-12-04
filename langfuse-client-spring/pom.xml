@@ -38,6 +38,10 @@
             <artifactId>spring-context</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
@@ -84,12 +88,19 @@
                             <apiPackage>me.kpavlov.langfuse.spring</apiPackage>
                             <modelPackage>me.kpavlov.langfuse.spring.model</modelPackage>
                             <configOptions>
+                                <annotationLibrary>none</annotationLibrary>
+                                <annotationLibrary>none</annotationLibrary>
+                                <documentationProvider>none</documentationProvider>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
                                 <openApiNullable>true</openApiNullable>
-                                <annotationLibrary>none</annotationLibrary>
                                 <serializationLibrary>jackson</serializationLibrary>
+                                <useAbstractionForFiles>true</useAbstractionForFiles>
+                                <useGzipFeature>true</useGzipFeature>
                                 <useJakartaEe>true</useJakartaEe>
+                                <useOneOfDiscriminatorLookup>true</useOneOfDiscriminatorLookup>
                                 <useOneOfInterfaces>true</useOneOfInterfaces>
+                                <enumUnknownDefaultCase>true</enumUnknownDefaultCase>
+                                <legacyDiscriminatorBehavior>false</legacyDiscriminatorBehavior>
                             </configOptions>
                         </configuration>
                     </execution>
