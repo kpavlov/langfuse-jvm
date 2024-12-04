@@ -1,9 +1,11 @@
 package me.kpavlov.langfuse.spring
 
+import me.kpavlov.langfuse.ApiClient
 import org.springframework.util.SystemPropertyUtils
 import org.springframework.web.reactive.function.client.WebClient
 
-private const val VERSION = "0.1.0"
+private val appVersion: String =
+    LangfuseClient::class.java.getPackage().implementationVersion
 
 /**
  * LangfuseClient is a client library for interacting with the Langfuse API. It provides various APIs
@@ -24,7 +26,7 @@ public open class LangfuseClient(
         SystemPropertyUtils.resolvePlaceholders(
             "\${LANGFUSE_PUBLIC_KEY}",
         ),
-    val host: String =
+    private val host: String =
         SystemPropertyUtils.resolvePlaceholders(
             "\${LANGFUSE_HOST}",
         ),
@@ -37,13 +39,15 @@ public open class LangfuseClient(
 
     protected open fun prepareClient(
         webClientBuilder: WebClient.Builder = WebClient.builder(),
-    ): WebClient =
-        webClientBuilder
-            .baseUrl(host)
-            .defaultHeaders { headers ->
-                headers.setBasicAuth(publicKey, secretKey)
-                headers.set("User-Agent", "me.kpavlov.langfuse-jvm.spring/$VERSION")
-            }.build()
+    ): ApiClient =
+        ApiClient(
+            webClientBuilder
+                .baseUrl(host)
+                .defaultHeaders { headers ->
+                    headers.setBasicAuth(publicKey, secretKey)
+                    headers.set("User-Agent", "me.kpavlov.langfuse-jvm.spring/$appVersion")
+                }.build(),
+        )
 
     /**
      * Provides a client for accessing project-related endpoints.
