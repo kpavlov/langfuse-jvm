@@ -35,7 +35,7 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val projects =
                 langfuseClient
-                    .projectsApi()
+                    .projectsApi
                     .projectsGet()
                     .block()
 
@@ -47,12 +47,13 @@ internal class LangfuseIT {
         }
 
     @Test
+    @Disabled("Not implemented yet")
     fun `Should call DatasetItemsApi`() =
         runTest(timeout = 5.seconds) {
             val datasetItems =
                 langfuseClient
-                    .datasetItemsApi()
-                    .datasetItemsList()
+                    .datasetItemsApi
+                    .datasetItemsList(TODO(), TODO(), TODO(), TODO(), TODO())
                     .block()
 
             assertThat(datasetItems).isNotNull()
@@ -68,7 +69,7 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val datasetRunItems =
                 langfuseClient
-                    .datasetRunItemsApi()
+                    .datasetRunItemsApi
                     .datasetRunItemsCreate(TODO())
                     .block()
 
@@ -80,8 +81,8 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val datasets =
                 langfuseClient
-                    .datasetsApi()
-                    .datasetsList()
+                    .datasetsApi
+                    .datasetsList(TODO(), TODO())
                     .block()
 
             assertThat(datasets).isNotNull()
@@ -96,7 +97,7 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val health =
                 langfuseClient
-                    .healthApi()
+                    .healthApi
                     .healthHealth()
                     .block()
 
@@ -113,7 +114,7 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val ingestion =
                 langfuseClient
-                    .ingestionApi()
+                    .ingestionApi
                     .ingestionBatch(TODO())
                     .block()
 
@@ -129,8 +130,8 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val metrics =
                 langfuseClient
-                    .metricsApi()
-                    .metricsDaily()
+                    .metricsApi
+                    .metricsDaily(TODO(), TODO(), TODO(), TODO(), TODO(), TODO(), TODO())
                     .block()
 
             assertThat(metrics).isNotNull()
@@ -145,8 +146,8 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val models =
                 langfuseClient
-                    .modelsApi()
-                    .modelsList()
+                    .modelsApi
+                    .modelsList(TODO(), TODO())
                     .block()
 
             assertThat(models).isNotNull()
@@ -161,9 +162,19 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val observations =
                 langfuseClient
-                    .observationsApi()
-                    .observationsGetMany()
-                    .block()
+                    .observationsApi
+                    .observationsGetMany(
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                    ).block()
 
             assertThat(observations).isNotNull()
             observations?.let {
@@ -177,8 +188,8 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val prompts =
                 langfuseClient
-                    .promptsApi()
-                    .promptsList()
+                    .promptsApi
+                    .promptsList(TODO(), TODO(), TODO(), TODO(), TODO(), TODO(), TODO())
                     .block()
 
             assertThat(prompts).isNotNull()
@@ -193,9 +204,23 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val score =
                 langfuseClient
-                    .scoreApi()
-                    .scoreGet()
-                    .block()
+                    .scoreApi
+                    .scoreGet(
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                    ).block()
 
             assertThat(score).isNotNull()
             score?.let {
@@ -209,8 +234,8 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val scoreConfigs =
                 langfuseClient
-                    .scoreConfigsApi()
-                    .scoreConfigsGet()
+                    .scoreConfigsApi
+                    .scoreConfigsGet(TODO(), TODO())
                     .block()
 
             assertThat(scoreConfigs).isNotNull()
@@ -225,8 +250,8 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val sessions =
                 langfuseClient
-                    .sessionsApi()
-                    .sessionsList()
+                    .sessionsApi
+                    .sessionsList(TODO(), TODO(), TODO(), TODO())
                     .block()
 
             assertThat(sessions).isNotNull()
@@ -241,9 +266,20 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val trace =
                 langfuseClient
-                    .traceApi()
-                    .traceList()
-                    .block()
+                    .traceApi
+                    .traceList(
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                        TODO(),
+                    ).block()
 
             assertThat(trace).isNotNull()
             trace?.let {
@@ -258,8 +294,8 @@ internal class LangfuseIT {
         runTest(timeout = 5.seconds) {
             val comments =
                 langfuseClient
-                    .commentsApi()
-                    .commentsGetRequestConfig()
+                    .commentsApi
+                    .commentsGet(TODO(), TODO(), TODO(), TODO(), TODO())
 
             assertThat(comments).isNotNull()
         }

@@ -5,7 +5,7 @@ import org.springframework.util.SystemPropertyUtils
 import org.springframework.web.reactive.function.client.WebClient
 
 private val appVersion: String =
-    LangfuseClient::class.java.getPackage().implementationVersion
+    LangfuseClient::class.java.getPackage().implementationVersion ?: "unknown"
 
 /**
  * LangfuseClient is a client library for interacting with the Langfuse API. It provides various APIs
@@ -37,7 +37,7 @@ public open class LangfuseClient(
         host = "https://cloud.langfuse.com",
     )
 
-    protected open fun prepareClient(
+    private fun prepareClient(
         webClientBuilder: WebClient.Builder = WebClient.builder(),
     ): ApiClient =
         ApiClient(
@@ -49,108 +49,168 @@ public open class LangfuseClient(
                 }.build(),
         )
 
-    /**
-     * Provides a client for accessing project-related endpoints.
-     *
-     * @return an instance of ProjectsApi configured with the client's WebClient
-     */
-    public open fun projectsApi(): ProjectsApi = ProjectsApi(prepareClient())
+    private val client: ApiClient = prepareClient()
 
     /**
-     * Provides a client for accessing comment-related endpoints.
+     * Provides an instance of `ProjectsApi` for accessing project-related API operations.
      *
-     * @return an instance of CommentsApi configured with the client's WebClient.
+     * This property is lazily initialized using the `client` instance, enabling interaction with
+     * project entities, such as retrieving or managing projects associated with the API key.
+     *
+     * The `ProjectsApi` is part of the Langfuse client infrastructure, which facilitates communication
+     * with a specific set of services or endpoints related to project management.
      */
-    public open fun commentsApi(): CommentsApi = CommentsApi(prepareClient())
+    public open val projectsApi: ProjectsApi by lazy {
+        ProjectsApi(client)
+    }
 
     /**
-     * Provides a client for accessing dataset items-related endpoints.
-     *
-     * @return an instance of DatasetItemsApi configured with the client's WebClient.
+     * Provides access to the API methods related to comments.
+     * Initialized lazily using the prepared [ApiClient] instance.
      */
-    public open fun datasetItemsApi(): DatasetItemsApi = DatasetItemsApi(prepareClient())
+    public open val commentsApi: CommentsApi by lazy {
+        CommentsApi(client)
+    }
 
     /**
-     * Provides a client for accessing dataset run items-related endpoints.
-     *
-     * @return an instance of DatasetRunItemsApi configured with the client's WebClient.
+     * Provides an instance of the `DatasetItemsApi` for interacting with dataset items within the Langfuse system.
+     * Initialized lazily using an `ApiClient` to facilitate API operations related to dataset items.
+     * Part of the `LangfuseClient` which serves as a comprehensive client for engaging with various Langfuse APIs.
      */
-    public open fun datasetRunItemsApi(): DatasetRunItemsApi = DatasetRunItemsApi(prepareClient())
+    public open val datasetItemsApi: DatasetItemsApi by lazy {
+        DatasetItemsApi(client)
+    }
 
     /**
-     * Provides a client for accessing dataset-related endpoints.
-     *
-     * @return an instance of DatasetsApi configured with the client's WebClient.
+     * Provides access to the DatasetRunItemsApi instance for managing dataset run items.
+     * It is initialized lazily using the provided client, ensuring that the API client
+     * is ready for interaction when needed.
      */
-    public open fun datasetsApi(): DatasetsApi = DatasetsApi(prepareClient())
+    public open val datasetRunItemsApi: DatasetRunItemsApi by lazy {
+        DatasetRunItemsApi(client)
+    }
 
     /**
-     * Provides a client for accessing health-related endpoints.
+     * Provides access to the Datasets API, enabling operations related to datasets.
      *
-     * @return an instance of HealthApi configured with the client's WebClient.
+     * The `datasetsApi` is initialized lazily and utilizes an instance of `ApiClient`
+     * for executing requests. This configuration ensures the API client is set up
+     * with appropriate authentication and headers.
+     *
+     * Part of the `LangfuseClient` structure, it is responsible for managing dataset-related
+     * functionalities such as creation, retrieval, updating, and deletion of datasets.
      */
-    public open fun healthApi(): HealthApi = HealthApi(prepareClient())
+    public open val datasetsApi: DatasetsApi by lazy {
+        DatasetsApi(client)
+    }
 
     /**
-     * Provides a client for accessing ingestion-related endpoints.
+     * Provides an instance of the HealthApi interface for checking the health of the API and database.
      *
-     * @return an instance of IngestionApi configured with the client's WebClient.
+     * The HealthApi allows you to interact with health-check endpoints, ensuring that the API and
+     * associated database are operational and responding as expected.
+     *
+     * This property is lazily instantiated using the ApiClient configured for the system, which
+     * means it will be initialized once upon first access and reused thereafter.
+     *
+     * The health checks typically cover a variety of response status codes, indicating the state
+     * of the API:
+     * - 200: Successful response, API and database are up and running.
+     * - 400, 401, 403, 404, 405, 503: Various error states indicating issues with API access,
+     *   authorization, unavailability, or misconfiguration.
+     *
+     * Usage of this API generally involves calling its health-check methods to ensure system
+     * robustness before performing more critical operations.
      */
-    public open fun ingestionApi(): IngestionApi = IngestionApi(prepareClient())
+    public open val healthApi: HealthApi by lazy {
+        HealthApi(client)
+    }
 
     /**
-     * Provides a client for accessing metrics-related endpoints.
-     *
-     * @return an instance of MetricsApi configured with the client's WebClient.
+     * Provides access to the Ingestion API for handling data ingestions through the client.
+     * This property is lazily initialized and uses the provided client instance from the enclosing
+     * LangfuseClient class to create an IngestionApi object. It is intended to be used for
+     * making calls to the underlying data ingestion functionalities offered by the API.
      */
-    public open fun metricsApi(): MetricsApi = MetricsApi(prepareClient())
+    public open val ingestionApi: IngestionApi by lazy {
+        IngestionApi(client)
+    }
 
     /**
-     * Provides a client for accessing model-related endpoints.
-     *
-     * @return an instance of ModelsApi configured with the client's WebClient.
+     * Provides access to the Metrics API through the `MetricsApi` class.
+     * This property is lazily initialized using the client configured in the `LangfuseClient`.
+     * It facilitates interactions with the metrics functionality of the API.
      */
-    public open fun modelsApi(): ModelsApi = ModelsApi(prepareClient())
+    public open val metricsApi: MetricsApi by lazy {
+        MetricsApi(client)
+    }
 
     /**
-     * Provides a client for accessing observation-related endpoints.
-     *
-     * @return an instance of ObservationsApi configured with the client's WebClient.
+     * Provides access to the Models API, which is responsible for managing operations
+     * related to models within the LangfuseClient.
+     * It is initialized lazily with an instance of `ModelsApi`, utilizing the client configured for API communication.
      */
-    public open fun observationsApi(): ObservationsApi = ObservationsApi(prepareClient())
+    public open val modelsApi: ModelsApi by lazy {
+        ModelsApi(client)
+    }
 
     /**
-     * Provides a client for accessing prompt-related endpoints.
-     *
-     * @return an instance of PromptsApi configured with the client's WebClient.
+     * Provides access to operations related to observations within the API.
+     * This is lazily initialized and uses the provided [client] to perform its operations.
+     * The [ObservationsApi] is responsible for handling all interactions related to observations.
      */
-    public open fun promptsApi(): PromptsApi = PromptsApi(prepareClient())
+    public open val observationsApi: ObservationsApi by lazy {
+        ObservationsApi(client)
+    }
 
     /**
-     * Provides a client for accessing score-related endpoints.
-     *
-     * @return an instance of ScoreApi configured with the client's WebClient
+     * Provides access to the Prompts API for interacting with prompt-related operations.
+     * Initialized lazily with an instance of `PromptsApi` using the configured `ApiClient`.
+     * Used within the `LangfuseClient` for managing prompt data.
      */
-    public open fun scoreApi(): ScoreApi = ScoreApi(prepareClient())
+    public open val promptsApi: PromptsApi by lazy {
+        PromptsApi(client)
+    }
 
     /**
-     * Provides a client for accessing score configuration-related endpoints.
+     * Provides access to the `ScoreApi` for interacting with scoring-related operations.
+     * The `scoreApi` is initialized lazily and is configured using the `ApiClient` instance.
      *
-     * @return an instance of ScoreConfigsApi configured with the client's WebClient.
+     * This property is part of the `LangfuseClient` class and interfaces with the scoring service.
      */
-    public open fun scoreConfigsApi(): ScoreConfigsApi = ScoreConfigsApi(prepareClient())
+    public open val scoreApi: ScoreApi by lazy {
+        ScoreApi(client)
+    }
 
     /**
-     * Provides a client for accessing session-related endpoints.
-     *
-     * @return an instance of SessionsApi configured with the client's WebClient.
+     * Provides access to score configuration-related operations through the ScoreConfigsApi.
+     * This property is initialized lazily and utilizes the underlying HTTP client.
+     * It's part of the LangfuseClient, which serves as a client interface to interact with various
+     * APIs, including score configurations, within the application.
      */
-    public open fun sessionsApi(): SessionsApi = SessionsApi(prepareClient())
+    public open val scoreConfigsApi: ScoreConfigsApi by lazy {
+        ScoreConfigsApi(client)
+    }
 
     /**
-     * Provides a client for accessing trace-related endpoints.
-     *
-     * @return an instance of TraceApi configured with the client's WebClient
+     * Provides access to the Sessions API, enabling the management and retrieval of session-related data.
+     * This property is initialized lazily upon first access using the provided ApiClient instance.
      */
-    public open fun traceApi(): TraceApi = TraceApi(prepareClient())
+    public open val sessionsApi: SessionsApi by lazy {
+        SessionsApi(client)
+    }
+
+    /**
+     * Provides access to the Trace API operations using the configured API client.
+     *
+     * This property is lazily initialized and uses the central API client for setting
+     * up communication with the Trace API endpoints. Once accessed, it allows for
+     * interacting with trace-related functionalities of the system.
+     *
+     * @property traceApi Lazy-initialized property that provides an instance of
+     * TraceApi, responsible for handling trace operations via the configured client instance.
+     */
+    public open val traceApi: TraceApi by lazy {
+        TraceApi(client)
+    }
 }
