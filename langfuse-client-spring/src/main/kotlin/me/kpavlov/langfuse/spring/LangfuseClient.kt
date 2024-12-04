@@ -1,6 +1,10 @@
 package me.kpavlov.langfuse.spring
 
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
 import me.kpavlov.langfuse.ApiClient
+import org.slf4j.LoggerFactory
 import org.springframework.util.SystemPropertyUtils
 import org.springframework.web.reactive.function.client.WebClient
 
@@ -31,6 +35,8 @@ public open class LangfuseClient(
             "\${LANGFUSE_HOST}",
         ),
 ) {
+    private val logger = LoggerFactory.getLogger(javaClass)
+
     constructor(secretKey: String, publicKey: String) : this(
         secretKey = secretKey,
         publicKey = publicKey,
@@ -40,6 +46,7 @@ public open class LangfuseClient(
     private fun prepareClient(
         webClientBuilder: WebClient.Builder = WebClient.builder(),
     ): ApiClient {
+        val objectMapper = createObjectMapper()
         val apiClient =
             ApiClient(
                 webClientBuilder
@@ -47,10 +54,23 @@ public open class LangfuseClient(
                         headers.setBasicAuth(publicKey, secretKey)
                         headers.set("User-Agent", "me.kpavlov.langfuse-jvm.spring/$appVersion")
                     }.build(),
+                objectMapper,
+                ApiClient.createDefaultDateFormat(),
             )
         apiClient.basePath = host
+
+        logger.info("Initialized LangFuse client with host: {}", host)
+
         return apiClient
     }
+
+    private fun createObjectMapper(): ObjectMapper =
+        ObjectMapper()
+            .findAndRegisterModules()
+            .enable(JsonParser.Feature.INCLUDE_SOURCE_IN_LOCATION)
+            .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+            .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
 
     private val client: ApiClient = prepareClient()
 
