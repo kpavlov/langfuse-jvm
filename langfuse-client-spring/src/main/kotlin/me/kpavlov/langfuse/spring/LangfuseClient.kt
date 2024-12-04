@@ -5,7 +5,7 @@ import org.springframework.util.SystemPropertyUtils
 import org.springframework.web.reactive.function.client.WebClient
 
 private val appVersion: String =
-    LangfuseClient::class.java.getPackage().implementationVersion ?: "unknown"
+    LangfuseClient::class.java.getPackage().implementationVersion ?: "development"
 
 /**
  * LangfuseClient is a client library for interacting with the Langfuse API. It provides various APIs
@@ -39,15 +39,18 @@ public open class LangfuseClient(
 
     private fun prepareClient(
         webClientBuilder: WebClient.Builder = WebClient.builder(),
-    ): ApiClient =
-        ApiClient(
-            webClientBuilder
-                .baseUrl(host)
-                .defaultHeaders { headers ->
-                    headers.setBasicAuth(publicKey, secretKey)
-                    headers.set("User-Agent", "me.kpavlov.langfuse-jvm.spring/$appVersion")
-                }.build(),
-        )
+    ): ApiClient {
+        val apiClient =
+            ApiClient(
+                webClientBuilder
+                    .defaultHeaders { headers ->
+                        headers.setBasicAuth(publicKey, secretKey)
+                        headers.set("User-Agent", "me.kpavlov.langfuse-jvm.spring/$appVersion")
+                    }.build(),
+            )
+        apiClient.basePath = host
+        return apiClient
+    }
 
     private val client: ApiClient = prepareClient()
 

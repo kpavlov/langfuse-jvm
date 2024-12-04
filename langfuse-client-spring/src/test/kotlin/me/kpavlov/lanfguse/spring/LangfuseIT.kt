@@ -189,14 +189,24 @@ internal class LangfuseIT {
             val prompts =
                 langfuseClient
                     .promptsApi
-                    .promptsList(TODO(), TODO(), TODO(), TODO(), TODO(), TODO(), TODO())
-                    .block()
+                    .awaitPromptsList()
 
             assertThat(prompts).isNotNull()
-            prompts?.let {
-                assertThat(it.data).isNotNull()
+            prompts.let {
+                assertThat(it.data, "data").isNotEmpty()
                 println("prompts = ${it.data}")
             }
+
+            val promptListItem = prompts.data[0]
+
+            val prompt =
+                langfuseClient.promptsApi.awaitPromptGet(
+                    promptName = promptListItem.name,
+                    label = promptListItem.labels.first(),
+//                    version = promptListItem.versions.max(),
+                )
+            assertThat(prompt).isNotNull()
+            println("prompt = $prompt")
         }
 
     @Test
@@ -235,7 +245,7 @@ internal class LangfuseIT {
             val scoreConfigs =
                 langfuseClient
                     .scoreConfigsApi
-                    .scoreConfigsGet(TODO(), TODO())
+                    .scoreConfigsGet(1, 100)
                     .block()
 
             assertThat(scoreConfigs).isNotNull()

@@ -78,6 +78,11 @@
                 <version>${kotlinx.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-coroutines-reactor</artifactId>
+                <version>${kotlinx.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-bom</artifactId>
                 <version>${slf4j.version}</version>
@@ -407,10 +412,10 @@
                     </execution>
                     <execution>
                         <id>dokka-site</id>
-                        <phase>pre-site</phase>
                         <goals>
                             <goal>dokka</goal>
                         </goals>
+                        <phase>pre-site</phase>
                         <configuration>
                             <sourceDirectories>
                                 <dir>langfuse-client-java/src/main/kotlin</dir>
