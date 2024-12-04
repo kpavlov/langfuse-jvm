@@ -1,10 +1,10 @@
 build:
-	  mvn clean verify dokka:dokka site
+	  mvn clean verify site
 
 apidocs:
-	  mvn clean dokka:dokka -pl !reports && \
-    mkdir -p target/docs && \
-		cp -R core/target/dokka target/docs/api
+	  mvn  mvn clean compile site && \
+  	mkdir -p target/docs && \
+  	cp -R target/dokka target/docs/api
 
 lint:prepare
 	  ktlint '!**/target/**' && \

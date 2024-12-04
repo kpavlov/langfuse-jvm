@@ -405,6 +405,20 @@
                             <attach>true</attach>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>dokka-site</id>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>dokka</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectories>
+                                <dir>langfuse-client-java/src/main/kotlin</dir>
+                                <dir>langfuse-client-spring/src/main/kotlin</dir>
+                                <dir>langfuse-client-spring/target/generated-sources/openapi/src/main/java</dir>
+                            </sourceDirectories>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
