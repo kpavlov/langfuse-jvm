@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.kpavlov.langfuse</groupId>
@@ -9,13 +7,6 @@
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Langfuse JVM :: Root</name>
-
-    <modules>
-        <module>bom</module>
-        <module>langfuse-client-spring</module>
-        <module>langfuse-client-java</module>
-        <module>reports</module>
-    </modules>
 
     <licenses>
         <license>
@@ -35,18 +26,25 @@
         </developer>
     </developers>
 
+    <modules>
+        <module>bom</module>
+        <module>langfuse-client-spring</module>
+        <module>langfuse-client-java</module>
+        <module>reports</module>
+    </modules>
+
     <scm>
         <connection>scm:git:git://github.com/kpavlov/langfuse-jvm.git</connection>
         <developerConnection>scm:git:ssh://github.com/kpavlov/langfuse-jvm.git</developerConnection>
-        <url>https://github.com/kpavlov/langfuse-jvm/tree/main</url>
         <tag>HEAD</tag>
+        <url>https://github.com/kpavlov/langfuse-jvm/tree/main</url>
     </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.code.style>official</kotlin.code.style>
         <java.version>17</java.version>
-        <kotlin.version>2.0.21</kotlin.version>
+        <kotlin.version>2.1.0</kotlin.version>
         <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
         <java.compiler.release>${java.version}</java.compiler.release>
         <!-- Dependencies -->
@@ -171,8 +169,6 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -255,10 +251,58 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.11.1</version>
                 </plugin>
+                <plugin>
+                    <!-- https://github.com/diffplug/spotless/blob/main/plugin-maven -->
+                    <groupId>com.diffplug.spotless</groupId>
+                    <artifactId>spotless-maven-plugin</artifactId>
+                    <version>2.43.0</version>
+                    <configuration>
+                        <!-- optional: limit format enforcement to just the files changed by this feature branch -->
+                        <ratchetFrom>origin/main</ratchetFrom>
+                        <java>
+                            <palantirJavaFormat/>
+                            <excludes>
+                                <exclude>target/**</exclude>
+                            </excludes>
+                        </java>
+                        <markdown>
+                            <includes>
+                                <!-- You have to set the target manually -->
+                                <include>**/*.md</include>
+                            </includes>
+                            <flexmark/>
+                        </markdown>
+                        <pom>
+                            <includes>
+                                <!-- You have to set the target manually -->
+                                <include>**/pom.xml</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/generated*/**</exclude>
+                            </excludes>
+                            <sortPom>
+                                <nrOfIndentSpace>4</nrOfIndentSpace>
+                                <expandEmptyElements>false</expandEmptyElements>
+                            </sortPom>
+                        </pom>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
+
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <!--suppress KotlinMavenPluginPhase -->
@@ -274,6 +318,7 @@
                     <sourceDirs>
                         <sourceDir>src/main/kotlin</sourceDir>
                         <sourceDir>target/generated-sources/openapi/src/main/kotlin</sourceDir>
+                        <sourceDir>target/generated-sources/openapi/gen/kotlin</sourceDir>
                     </sourceDirs>
                 </configuration>
             </plugin>
@@ -334,10 +379,10 @@
                 <artifactId>detekt-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -346,10 +391,10 @@
                 <artifactId>dokka-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>package</phase>
                         <goals>
                             <goal>javadocJar</goal>
                         </goals>
+                        <phase>package</phase>
                         <configuration>
                             <attach>true</attach>
                         </configuration>
@@ -370,6 +415,8 @@
                 </configuration>
             </plugin>
         </plugins>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
     </build>
 
     <profiles>
@@ -384,10 +431,10 @@
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
-                                <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <phase>verify</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -419,6 +466,5 @@
             </build>
         </profile>
     </profiles>
-
 
 </project>
