@@ -11,6 +11,14 @@ import org.springframework.web.reactive.function.client.WebClient
 private val appVersion: String =
     LangfuseClient::class.java.getPackage().implementationVersion ?: "development"
 
+fun configureObjectMapper(mapper: ObjectMapper) {
+    mapper
+        .findAndRegisterModules()
+        .enable(JsonParser.Feature.USE_FAST_DOUBLE_PARSER)
+        .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
+        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+}
+
 /**
  * LangfuseClient is a client library for interacting with the Langfuse API. It provides various APIs
  * for accessing and managing resources within the Langfuse platform.
@@ -46,7 +54,6 @@ public open class LangfuseClient(
     private fun prepareClient(
         webClientBuilder: WebClient.Builder = WebClient.builder(),
     ): ApiClient {
-        val objectMapper = createObjectMapper()
         val apiClient =
             ApiClient(
                 webClientBuilder
@@ -54,23 +61,14 @@ public open class LangfuseClient(
                         headers.setBasicAuth(publicKey, secretKey)
                         headers.set("User-Agent", "me.kpavlov.langfuse-jvm.spring/$appVersion")
                     }.build(),
-                objectMapper,
-                ApiClient.createDefaultDateFormat(),
             )
         apiClient.basePath = host
+        configureObjectMapper(apiClient.objectMapper)
 
         logger.info("Initialized LangFuse client with host: {}", host)
 
         return apiClient
     }
-
-    private fun createObjectMapper(): ObjectMapper =
-        ObjectMapper()
-            .findAndRegisterModules()
-            .enable(JsonParser.Feature.INCLUDE_SOURCE_IN_LOCATION)
-            .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-            .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
-            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
 
     private val client: ApiClient = prepareClient()
 

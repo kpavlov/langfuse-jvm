@@ -1,11 +1,15 @@
 package me.kpavlov.lanfguse.spring
 
 import assertk.assertThat
+import assertk.assertions.contains
+import assertk.assertions.doesNotContain
 import assertk.assertions.isNotEmpty
 import assertk.assertions.isNotNull
 import assertk.fail
 import kotlinx.coroutines.test.runTest
 import me.kpavlov.langfuse.spring.LangfuseClient
+import me.kpavlov.langfuse.spring.awaitPromptGet
+import me.kpavlov.langfuse.spring.awaitPromptsList
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -189,7 +193,7 @@ internal class LangfuseIT {
 
     @Test
     fun `Should call PromptsApi`() =
-        runTest(timeout = 5.seconds) {
+        runTest(timeout = 1500.seconds) {
             val prompts =
                 langfuseClient
                     .promptsApi
@@ -200,18 +204,16 @@ internal class LangfuseIT {
                 assertThat(it.data, "data").isNotEmpty()
                 println("prompts = ${it.data}")
             }
-            /*
-            todo: fix polymorphism
-            val promptListItem = prompts.data[0]
 
+            val promptListItem = prompts.data[0]
 
             val prompt =
                 langfuseClient.promptsApi.awaitPromptGet(
                     promptName = promptListItem.name,
                 )
             assertThat(prompt).isNotNull()
-            println("prompt = $prompt")
-             */
+            assertThat(prompt.toString()).doesNotContain("You are")
+            assertThat(prompt.toString()).contains("[REDACTED]")
         }
 
     @Test

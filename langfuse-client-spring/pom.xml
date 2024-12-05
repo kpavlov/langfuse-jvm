@@ -89,7 +89,6 @@
                             <modelPackage>me.kpavlov.langfuse.spring.model</modelPackage>
                             <configOptions>
                                 <annotationLibrary>none</annotationLibrary>
-                                <annotationLibrary>none</annotationLibrary>
                                 <documentationProvider>none</documentationProvider>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
                                 <openApiNullable>true</openApiNullable>
@@ -100,8 +99,9 @@
                                 <useOneOfDiscriminatorLookup>true</useOneOfDiscriminatorLookup>
                                 <useOneOfInterfaces>true</useOneOfInterfaces>
                                 <enumUnknownDefaultCase>true</enumUnknownDefaultCase>
-                                <legacyDiscriminatorBehavior>false</legacyDiscriminatorBehavior>
+                                <legacyDiscriminatorBehavior>true</legacyDiscriminatorBehavior>
                             </configOptions>
+                            <typeMappings>Prompt=com.fasterxml.jackson.databind.JsonNode</typeMappings>
                         </configuration>
                     </execution>
                 </executions>
