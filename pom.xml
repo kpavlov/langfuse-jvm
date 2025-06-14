@@ -52,7 +52,7 @@
         <awaitility.version>4.2.2</awaitility.version>
         <finchly.version>0.1.1</finchly.version>
         <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
-        <jackson.version>2.19.0</jackson.version>
+        <jackson.version>2.19.1</jackson.version>
         <jakarta-annotation-version>3.0.0</jakarta-annotation-version>
         <junit.version>5.13.1</junit.version>
         <kotlinx.version>1.10.2</kotlinx.version>
