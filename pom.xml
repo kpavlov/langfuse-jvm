@@ -59,7 +59,7 @@
         <mockito-kotlin.version>6.0.0</mockito-kotlin.version>
         <mockito.version>5.19.0</mockito.version>
         <slf4j.version>2.0.17</slf4j.version>
-        <spring.version>6.2.10</spring.version>
+        <spring.version>6.2.11</spring.version>
         <wiremock.version>3.9.2</wiremock.version>
     </properties>
 
