@@ -54,7 +54,7 @@
         <jackson-databind-nullable.version>0.2.7</jackson-databind-nullable.version>
         <jackson.version>2.20.0</jackson.version>
         <jakarta-annotation-version>3.0.0</jakarta-annotation-version>
-        <junit.version>5.13.4</junit.version>
+        <junit.version>5.14.0</junit.version>
         <kotlinx.version>1.10.2</kotlinx.version>
         <mockito-kotlin.version>6.0.0</mockito-kotlin.version>
         <mockito.version>5.20.0</mockito.version>
